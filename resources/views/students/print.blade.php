@@ -43,22 +43,22 @@
             margin-bottom:5px;
     }
     ol li{
-        line-height:30px;
+        line-height:25px;
     }
     </style>
 </head>
 <body>
-    <h5 style="float:right; margin-right:50px; font-family:'Times New Roman';">Performa-I</h5>
-    <div class="attested" style="font-family:'Times New Roman'; border:1px solid black; display:inline-block;line-height:140px; padding:0px 10px;position: absolute;right:50px;top:50px; 
-    background:url('/storage/studentPhotos/<?=$student->student_photo?>'); background-size:contain; color:rgba(0,0,0,0);">
+    <h5 style="float:right; font-family:'Times New Roman';">Performa-I</h5>
+    <div class="attested" style="font-family:'Times New Roman'; border:1px solid black; display:inline-block;line-height:140px; padding:0px 10px;position: absolute;top:50px; right:0px; 
+    background:url('/storage/studentPhotos/<?=$student->student_photo?>'); background-repeat:no-repeat; background-size:contain; color:rgba(0,0,0,0);">
         Attested Photo
     </div>
     <center class="header">
         <br>
         <h2 style="font-family:'Times New Roman';">I.K.GUJRAL PUNJAB TECHNICAL UNIVERSITY</h2>
         <h4 style="font-family:'Times New Roman'; font-size:18px;">Zonal Youth Festival North Zone</h4>
-        <h4 style="text-align: left; margin-left:10vw;">Name of the Host College/Institute: D.A.V. Institute of Engg. and Tech.</h4>
-        <h4>on dated __________________________</h4>
+        <h4 style="">Name of the Host College/Institute: DAVIET Jalandhar</h4>
+        <h4>23<sup>rd</sup> - 25<sup>th</sup> October 2019</h4>
         <h4>Eligibility Performa for Participants/Accompanists</h4>
     </center>
     <div>
@@ -94,34 +94,41 @@
             </li>
             <li>
                 Class &emsp;&emsp;&emsp;Branch&emsp;&emsp;&emsp;Roll No.&emsp;&emsp;&emsp;University Regd. No.<br>
-                <u><?=substr($student->class, 0, 5)?></u>&emsp;&emsp;&emsp;<u><?=substr($student->class, 0, 6)?></u>&emsp;&emsp;&emsp;<u><?=substr($student->class, 0, 6)?></u>&emsp;&emsp;&emsp;<u><?=substr($student->class, 0, 20)?></u>
+                <u><?=$student->class?></u>&emsp;&emsp;&emsp;&nbsp;&nbsp;<u><?=$student->branch?></u>&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u><?=$student->roll_number?></u>&emsp;&emsp;&emsp;&emsp;&emsp;<u><?php if($student->university_registration == "0") echo "_______"; else echo $student->university_registration;?></u>
             </li>
+            
             <li>
                 Year of Passing +2 Examination &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;: <u><?=$student->year_of_passing?></u><br>
             </li>
             <li>
-                Item (s) for participation &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;: ____________, ___________<br>
-                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;: ____________, ___________<br>
+                Item (s) for participation &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;: <div style="text-align:justify; display:inline-block;  text-decoration:underline; max-width:250px; vertical-align:top; line-height:18px;">{{$event_string}}</div><br>
             </li>
             <li>
                 Accompanist for Event &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;: ________________________<br>
             </li>
             <li>
                   <?php
-                    $address_data = explode("\n", $student->address);
-                    $address_line_1 = array_shift($address_data);
-                    $address_line_2 = implode(", ", $address_data);
                   ?>
-                    Address &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;: <u><?=$address_line_1?></u><br>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;: <u><?=$address_line_2?></u><br>
+                    Address &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;: <div style="text-align:justify; display:inline-block;  text-decoration:underline; max-width:250px; vertical-align:top; line-height:18px;"><?=$student->address;?></div><br>
             </li>
         </ol>
-        <br>
         <br>
         <pre>
                                                                 <b>Signature of Student Participant/Accompanist</b>
 Cerified that particulars given above are correct as per the record of this institute.
         </pre>
+        <br>
+        <br>
+        <div style="float:right; margin-top:-20px; font-weight:bolder; margin-right:100px;">
+            Signature<br>
+            Principal/Director<br>
+            Institution _______
+        </div>
+        <div style="font-weight:bolder;">
+            Signature<br>
+            Cultural Co-ordinator
+        </div>
+        
         <hr style="border-top:1px solid black;">
         <center>
             <h4>FOR USE OF ORGANIZERS</h4>
