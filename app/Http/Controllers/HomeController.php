@@ -109,7 +109,7 @@ class HomeController extends Controller
         };
     }
     public function generate(){
-        return "This page has blocked.";
+        return "";
         $colleges = College::all();
         foreach($colleges as $college){
             $user = new User;
@@ -117,7 +117,7 @@ class HomeController extends Controller
             $user->email = null;
             $user->is_admin = 1;
             $user->username = $college->registration_number;
-            $user->password = Hash::make($college->registration_number . "1234");
+            $user->password = Hash::make($college->registration_number . "123");
             $user->college_id = $college->id;
             $user->save();
         }

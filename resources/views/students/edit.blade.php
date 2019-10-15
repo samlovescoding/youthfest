@@ -20,7 +20,7 @@
 				</div>
 				<div class="form-group">
 					{{Form::label('participating_as', 'Participating As')}}
-					{{Form::select('participating_as', ['participant'=>"Participant", 'student_accomp'=>"Student Accomplice"], $student->participating_as, ['class'=> 'form-control' ])}}
+					{{Form::select('participating_as', ['participant'=>"Participant", 'accomp'=>"Accompanist", 'student_accomp'=>"Student Accompanist"], $student->participating_as, ['class'=> 'form-control' ])}}
 				</div>
 			</div>
 			<div class="col-md-4" id="editForm-right">
@@ -72,7 +72,7 @@
 
 		<div class="form-group">
 			{{Form::label('year_of_passing', 'Year of Passing Class 12th')}}
-			{{Form::selectRange('year_of_passing', 1990, 2005, $student->year_of_passing, ['class'=> 'form-control', 'placeholder'=>'Enter the year student passed class 12th'])}}
+			{{Form::selectRange('year_of_passing', 1990, 2020, $student->year_of_passing, ['class'=> 'form-control', 'placeholder'=>'Enter the year student passed class 12th'])}}
 		</div>
 
 		<div class="form-group">
@@ -83,6 +83,21 @@
 		<div class="form-group">
 			{{Form::label('student_photo', 'Student Photo')}}
 			{{Form::file('student_photo', ['class'=> 'form-control'])}}
+		</div>
+
+		<div class="form-group">
+			{{Form::label('event_list', 'Choose Events')}}<br>
+			@foreach($event_list as $event)
+				<?php
+					$is_part = false;
+					foreach ($event_relations as $event_relation) {
+						if($event_relation->event == $event->id){
+							$is_part = true;
+						}
+					}
+				?>
+				{{Form::checkbox('event_list[' . $event->id . ']', "true", $is_part)}} {{$event->name}} <br>
+			@endforeach
 		</div>
 		
 			{{Form::hidden("_method", "PUT")}}

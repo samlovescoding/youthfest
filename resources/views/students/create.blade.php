@@ -1,12 +1,12 @@
 @extends('dashboard.layout')
 
 @section('content')
-	<h1>Student Registration Form</h1>
+	<h1>Registration Form</h1>
 	{!! Form::open(['action' => 'StudentsController@store', 'method' => 'POST', 'enctype' => "multipart/form-data"]) !!}
 		
 		<div class="form-group">
 			{{Form::label('name', 'Name')}}
-			{{Form::text('name', '', ['class'=> 'form-control', 'placeholder'=>'Enter student name here'])}}
+			{{Form::text('name', '', ['class'=> 'form-control', 'placeholder'=>'Enter name here'])}}
 		</div>
 		<div class="form-group">
 			{{Form::label('father_name', 'Father\'s Name')}}
@@ -18,7 +18,7 @@
 		</div>
 		<div class="form-group">
 			{{Form::label('participating_as', 'Participating As')}}
-			{{Form::select('participating_as', ['participant'=>"Participant", 'student_accomp'=>"Student Accomplice", 'accomp'=>"Accomplice"], 'participant', ['class'=> 'form-control' ])}}
+			{{Form::select('participating_as', ['participant'=>"Participant", 'student_accomp'=>"Student Accompanist", 'accomp'=>"Accompanist"], 'participant', ['class'=> 'form-control' ])}}
 		</div>
 
 		<div class="row">
@@ -50,7 +50,7 @@
 
 		<div class="form-group">
 			{{Form::label('year_of_passing', 'Year of Passing Class 12th')}}
-			{{Form::selectRange('year_of_passing', 1990, 2005, 2000, ['class'=> 'form-control', 'placeholder'=>'Enter the year student passed class 12th'])}}
+			{{Form::selectRange('year_of_passing', 1990, 2020, 2000, ['class'=> 'form-control', 'placeholder'=>'Enter the year student passed class 12th'])}}
 		</div>
 
 		<div class="form-group">
@@ -61,12 +61,14 @@
 		<div class="form-group">
 			{{Form::label('student_photo', 'Student Photo')}}
 			{{Form::file('student_photo', ['class'=> 'form-control'])}}
+			<p><small>Please choose a passport size photo not greater than 2MB (only in JPG/PNG).</small></p>
 		</div>
 
 		<div class="form-group">
-			{{Form::label('event_list', 'Choose Events')}}
-			{{Form::select('event_list[]', $event_list, null, ['class'=> 'form-control', 'multiple' => 'multiple'])}}
-			<p><small>Use Ctrl key to select multiple events.</small></p>
+			{{Form::label('event_list', 'Choose Events')}}<br>
+			@foreach($event_list as $event => $event_name)
+				{{Form::checkbox('event_list[' . $event . ']', "true", false)}} {{$event_name}} <br>
+			@endforeach
 		</div>
 		
 		{{Form::submit('Create', ['class'=>'btn btn-primary'])}}

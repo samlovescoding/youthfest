@@ -58,30 +58,30 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validate($request, [
-        //     'name' => 'required',
-        //     'father_name' => 'required',
-        //     'date_birth' => 'required',
-        //     'participating_as' => 'required',
-        //     'class' => 'required',
-        //     'branch' => 'required',
-        //     'roll_number' => 'required',
-        //     'year_of_passing' => 'required',
-        //     'address' => 'required',
-        //     'event_list' => 'required',
-        //     'student_photo' => 'image|nullable|max:1999'
-        // ]);
+        $this->validate($request, [
+            'name' => 'required',
+            'father_name' => 'required',
+            'date_birth' => 'required',
+            'participating_as' => 'required',
+            //'class' => 'required',
+            //'branch' => 'required',
+            //'roll_number' => 'required',
+            //'year_of_passing' => 'required',
+            'address' => 'required',
+            'event_list' => 'required',
+            'student_photo' => 'image|nullable|max:1999'
+        ]);
 
         $student = new Student;
         $student->name                      = $request->input("name");
         $student->father_name               = $request->input("father_name");
-        $student->date_birth                = $request->input("date_birth");
+        $student->date_birth                = $request->input("date_birth"); //Datetime::createFromFormat("d/m/Y")->format("Y-m-d");
         $student->participating_as          = $request->input("participating_as");
-        $student->class                     = $request->input("class");
-        $student->branch                    = $request->input("branch");
-        $student->roll_number               = $request->input("roll_number");
-        $student->university_registration   = $request->input("university_registration");
-        $student->year_of_passing           = $request->input("year_of_passing");
+        $student->class                     = $request->input("class") ? $request->input("class") : "";
+        $student->branch                    = $request->input("branch") ? $request->input("branch") : "";
+        $student->roll_number               = $request->input("roll_number") ? $request->input("roll_number") : "" ;
+        $student->university_registration   = $request->input("university_registration") ? $request->input("university_registration") : "";
+        $student->year_of_passing           = $request->input("year_of_passing") ? $request->input("year_of_passing") : "";
         $student->address                   = $request->input("address");
         $student->accomp_id                 = Auth::id();
         
@@ -92,8 +92,8 @@ class StudentsController extends Controller
 
         $date_interval = $date_now->diff($date_birth);
 
-        if($date_interval->y >= 25){
-            return redirect("/students")->with("error", "Student must be younger than 25 year.");
+        if($student->participating_as == "participant" && $date_interval->y >= 25){
+            return redirect("/students")->with("error", "Participant must be younger than 25 year.");
         }
 
         //Handle File Upload
@@ -113,7 +113,10 @@ class StudentsController extends Controller
         $student->save();
 
         $student_id = $student->id;
-        foreach ($event_list as $index => $event_id) {
+
+        //print_r($event_list);
+        //return "";
+        foreach ($event_list as $event_id => $value) {
             $event_relation = new EventRelations;
             $event_relation->student = $student_id;
             $event_relation->event = $event_id;
@@ -159,7 +162,9 @@ class StudentsController extends Controller
         if(Auth::id() !== $student->accomp_id){
             return redirect("/posts")->with("error", "Unauthorized Page");
         }
-        return view("students.edit")->with("student", $student);
+        $event_relations = EventRelations::where("student", $id)->get();
+        $event_list = Event::all();
+        return view("students.edit")->with("student", $student)->with("event_relations", $event_relations)->with("event_list", $event_list);
     }
 
     /**
@@ -176,10 +181,10 @@ class StudentsController extends Controller
             'father_name' => 'required',
             'date_birth' => 'required',
             'participating_as' => 'required',
-            'class' => 'required',
-            'branch' => 'required',
-            'roll_number' => 'required',
-            'university_registration' => 'required',
+            //'class' => 'required',
+            //'branch' => 'required',
+            //'roll_number' => 'required',
+            //'university_registration' => 'required',
             'year_of_passing' => 'required',
             'address' => 'required',
             'student_photo' => "image|nullable|max:1999"
@@ -202,6 +207,7 @@ class StudentsController extends Controller
         $student->year_of_passing           = $request->input("year_of_passing");
         $student->address                   = $request->input("address");
         $student->accomp_id                 = Auth::id();
+        $event_list                         = $request->input("event_list");
 
         //Handle File Upload
         if($request->hasFile("student_photo")){
@@ -211,7 +217,18 @@ class StudentsController extends Controller
             $student->student_photo = $filename;
         }
 
-        
+        $event_relations = EventRelations::where("student", $id)->get();
+        foreach ($event_relations as $event_relation) {
+            $eventRelation = EventRelations::find($event_relation->id);
+            $eventRelation->delete();
+        }
+
+        foreach ($event_list as $event_id => $value) {
+            $event_relation = new EventRelations;
+            $event_relation->student = $id;
+            $event_relation->event = $event_id;
+            $event_relation->save();
+        }
 
         $student->save();
         return redirect("/students")->with("success", "Student information has been updated.");
@@ -226,11 +243,17 @@ class StudentsController extends Controller
     public function destroy($id)
     {
         $student = Student::find($id);
-        if(Auth::id() !== $student->accomp_id){
-            return redirect("/posts")->with("error", "Unauthorized Page");
+        if($student !== null){
+            if(Auth::id() !== $student->accomp_id){
+                return redirect("/posts")->with("error", "Unauthorized Page");
+            }
+            unlink("storage/studentPhotos/" . $student->student_photo);
+            $student->delete();
         }
-        unlink("storage/studentPhotos/" . $student->student_photo);
-        $student->delete();
         return redirect("/students")->with("success", "Student has been deleted.");
+        $event_relations = EventRelations::where("student", $id);
+        foreach ($event_relations as $event_relation) {
+            $event_relation->delete();
+        }
     }
 }

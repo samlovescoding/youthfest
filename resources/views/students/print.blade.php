@@ -18,6 +18,14 @@
   }
   $event_string = rtrim($event_string, ", ");
 
+  $ievent_string = $event_string;
+  $aevent_string = "";
+
+  if($student->participating_as == "accomp"){
+    $ievent_string = "";
+      $aevent_string = $event_string;
+  }
+
   $college_name_data = explode(",", $college->name);
 
 ?>
@@ -66,7 +74,7 @@
         <ol>
             <li>
                 Name of Institute: <u><?=substr($college_name_data[0], 0, 52);?></u><br>
-                Registration ID/Online Registration No. : <u><?=$college->registration_number;?></u>
+                Registration ID/Online Registration No. : <u><?=$college->uuid;?>/2019</u>
             </li>
             <li>
                 Participating as Participant/ Student Accompanist/Accompanist: <?php
@@ -90,9 +98,23 @@
                 Father's Name (Block Letters) &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;: <u><?=strtoupper($student->father_name)?></u><br>
             </li>
             <li>
-                Date of Birth &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;: <u><?=$student->date_birth?></u><br>
+                Date of Birth &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;: <u><?php $date = DateTime::createFromFormat("Y-m-d", $student->date_birth); echo $date->format("d-m-Y")?></u><br>
             </li>
             <li>
+                <table style="border:0px;">
+                    <tr>
+                        <td>Class</td>
+                        <td>Branch</td>
+                        <td>Roll No.</td>
+                        <td>University Registration</td>
+                    </tr>
+                    <tr>
+                        <td><?=$student->class?></td>
+                        <td><?=$student->branch?></td>
+                        <td><?=$student->roll_number?></td>
+                        <td><?php if($student->university_registration == "0") echo "_______"; else echo $student->university_registration;?></td>
+                    </tr>
+                </table>
                 Class &emsp;&emsp;&emsp;Branch&emsp;&emsp;&emsp;Roll No.&emsp;&emsp;&emsp;University Regd. No.<br>
                 <u><?=$student->class?></u>&emsp;&emsp;&emsp;&nbsp;&nbsp;<u><?=$student->branch?></u>&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u><?=$student->roll_number?></u>&emsp;&emsp;&emsp;&emsp;&emsp;<u><?php if($student->university_registration == "0") echo "_______"; else echo $student->university_registration;?></u>
             </li>
@@ -101,15 +123,13 @@
                 Year of Passing +2 Examination &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;: <u><?=$student->year_of_passing?></u><br>
             </li>
             <li>
-                Item (s) for participation &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;: <div style="text-align:justify; display:inline-block;  text-decoration:underline; max-width:250px; vertical-align:top; line-height:18px;">{{$event_string}}</div><br>
+                Item (s) for participation &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;: <div style="text-align:justify; display:inline-block;  text-decoration:underline; max-width:250px; vertical-align:top; line-height:18px;">{{$ievent_string}}</div><br>
             </li>
             <li>
-                Accompanist for Event &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;: ________________________<br>
+                Accompanist for Event &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;: <div style="text-align:justify; display:inline-block;  text-decoration:underline; max-width:250px; vertical-align:top; line-height:18px;">{{$aevent_string}}</div><br>
             </li>
             <li>
-                  <?php
-                  ?>
-                    Address &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;: <div style="text-align:justify; display:inline-block;  text-decoration:underline; max-width:250px; vertical-align:top; line-height:18px;"><?=$student->address;?></div><br>
+                Address &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;: <div style="text-align:justify; display:inline-block;  text-decoration:underline; max-width:250px; vertical-align:top; line-height:18px;"><?=$student->address;?></div><br>
             </li>
         </ol>
         <br>

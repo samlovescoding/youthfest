@@ -78,4 +78,45 @@
         }
     </style>
 
+<div class="modal fade" id="instructionModel" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Instructions</h4>
+        </div>
+        <div class="modal-body">
+            <ol>
+                <li>If this is your first time, please <b>CHANGE your PASSWORD</b> immediately.</li>
+                <li>The IKGPTU youth festival 2019 registration portal works in <b>Google Chrome Only</b>.</li>
+                <li>Single registration is required for registering a participant in which he/she is participating.</li>
+                <li>Select the events (whichever applicable) from Choose Event section while registering a Participant/ Student Accompanists/Accompanists</li>
+                <li>Same procedure is to be followed while registering Student Accompanists/Accompanists.</li>
+                <li>The allowed size for uploading participant photo is &lt; 2MB and allowed format is JPEG/PNG.</li>
+                <li>
+                    Performa I of Participant/Student Accompanist/Accompanist can be printed using online portal. <br>
+                    For printing, follow the steps
+                    <ol>
+                        <li>Press Ctlr+P</li>
+                        <li>Change Layout to Potrait</li>
+                        <li>In more settings, change Paper Size to A4</li>
+                        <li>In more settings, enable Background Graphics</li>
+                        <li>In more settings, disable Headers and Footers</li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">I Agree</button>
+        </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+    $('#instructionModel').modal({
+        show:true,
+        backdrop:'static',
+        keyboard:false
+    });
+</script>
+
 @endsection

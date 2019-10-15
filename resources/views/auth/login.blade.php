@@ -5,6 +5,10 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="card">
+                    <table style="text-align: center; ">
+                            <tr><img src="{{asset('img/logo-daviet-300x105.png')}}" style="width:50%; margin-right:10%;"></tr>
+                            <tr><img src="{{asset('img/ptu-logo-transparent.png')}}" style="width:20%;"></tr>
+                        </table>
                 <div class="card-header" style="padding-bottom:20px; font-size:24px; font-weight:bolder;">{{ __('Login') }}</div>
 
                 <div class="card-body">
@@ -57,11 +61,6 @@
                                     {{ __('Login') }}
                                 </button>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
                             </div>
                         </div>
                     </form>

@@ -12,6 +12,10 @@
 			{{Form::label('uuid', 'College Unique ID')}}
 			{{Form::text('uuid', '', ['class'=> 'form-control', 'placeholder'=>'Enter College UUID'])}}
 		</div>
+		<div class="form-group">
+			{{Form::label('nickname', 'College Unique ID')}}
+			{{Form::text('nickname', '', ['class'=> 'form-control', 'placeholder'=>'Enter College UUID'])}}
+		</div>
 		
 		{{Form::submit('Create', ['class'=>'btn btn-primary'])}}
 	{!! Form::close() !!}

@@ -16,6 +16,11 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+//Default Route
+Route::get('/landing', function () {
+    return view('landing');
+});
+
 //Authentication Routes
 Auth::routes(["verify"=>true]);
 

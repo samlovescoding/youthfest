@@ -1,0 +1,69 @@
+(function($) {
+    
+    'use strict';
+
+    $(document).ready(function () {
+
+        "use strict";
+
+        theme.init();
+        theme.sc_button();
+        theme.mainslider();
+        theme.countdown();
+        theme.onepagemenu();
+        theme.frequently_questions_slider();
+        theme.speakers();
+        theme.sponsor();
+        theme.bgslide();
+        theme.twitterst();
+        theme.testimonials();
+        theme.blogs();
+        
+        if( typeof google != 'undefined' ){
+            theme.googlemap();    
+        }
+        
+        theme.twitter();
+
+      
+
+
+    });
+
+
+    $(window).load(function() {
+        $('#loading').fadeOut();
+    });
+
+
+    $(document).ready(function () {
+        "use strict";
+        theme.onResize();
+    });
+    $(window).load(function () {
+        theme.onResize();
+    });
+    $(window).resize(function () {
+        theme.onResize();
+    });
+
+
+    window.twttr = (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+     
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+     
+      return t;
+    }(document, "script", "twitter-wjs"));
+
+})(jQuery);
+

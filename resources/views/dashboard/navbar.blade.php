@@ -33,7 +33,7 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="{{action('HomeController@approve_list')}}">Users Requests</a></li>
+              <li><a href="{{action('HomeController@approve_list')}}">Students Enrolled</a></li>
               <li><a href="{{route('events.index')}}">Events</a></li>
               <li><a href="{{route('colleges.index')}}">Colleges</a></li>
             </ul>
@@ -44,7 +44,7 @@
       <ul class="nav navbar-nav navbar-right">
         @guest
         <li><a href="{{ route('login') }}">Login</a></li>
-        <li><a href="{{ route('register') }}">Register</a></li>
+        
         @else
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>

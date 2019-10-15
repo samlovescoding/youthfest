@@ -15,13 +15,15 @@
             font-family:"Lato" !important;
           }
         </style>
+        <script src="{{asset('/js/app.js')}}"></script>
     </head>
     <body>
       @include('dashboard.navbar')
       <main class="container">
         @include('dashboard.messages')
         @yield('content')
+        <br>
       </main>
-      <script src="{{asset('/js/app.js')}}"></script>
+      @include('dashboard.footer')
     </body>
 </html>

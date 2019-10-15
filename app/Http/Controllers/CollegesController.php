@@ -39,11 +39,13 @@ class CollegesController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'uuid' => 'required',
+            'nickname' => 'required',
         ]);
 
         $college = new College;
         $college->name                              = $request->input("name");
         $college->registration_number               = $request->input("uuid");
+        $college->nickname                          = $request->input("nickname");
 
         $college->save();
         return redirect("/colleges")->with("success", "College Created.");
@@ -84,11 +86,13 @@ class CollegesController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'uuid' => 'required',
+            'nickname' => 'required',
         ]);
 
         $college = College::find($id);
         $college->name                              = $request->input("name");
         $college->registration_number               = $request->input("uuid");
+        $college->nickname                          = $request->input("nickname");
 
         $college->save();
         return redirect("/colleges")->with("success", "College Created.");
