@@ -27,11 +27,15 @@ class StudentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user_id = Auth::id();
         $user = User::find($user_id);
-        $students = Student::orderBy('roll_number', 'asc')->where('accomp_id', $user_id)->paginate();
+        $sort_by = "name";
+        if($request->has("sort_by")){
+            $sort_by = $request->input("sort_by");
+        }
+        $students = Student::orderBy($sort_by, 'asc')->where('accomp_id', $user_id)->paginate();
         return view("students.index")->with("students", $students);
     }
 

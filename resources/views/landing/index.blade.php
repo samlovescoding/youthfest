@@ -145,7 +145,7 @@
                             </div>
                             <div class="lgx-about-content">
                                 <p class="text">
-                                    
+                                    The details of the Zonal and Inter-Zonal Youth Festivals dedicated to <b>550th Birth Anniversary year of Sri Guru Nanak Dev Ji</b> in the affliated college of I.K. Gujral Punjab Technical University.
                                 </p>
                                 <div class="about-date-area">
                                     <h4 class="date"><span>23</span></h4>
@@ -154,7 +154,7 @@
 
                                 <div class="section-btn-area">
                                     <a class="lgx-btn" href="https://www.facebook.com/pg/davietjal.org/photos/?tab=album&album_id=2168758389870614" target="_blank"><span>Gallery</span></a>
-                                    <a class="lgx-btn lgx-btn-red lgx-scroll" href="#lgx-registration"><span>Registration</span></a>
+                                    <a class="lgx-btn lgx-btn-red lgx-scroll" href="/login"><span>Registration</span></a>
                                 </div>
                             </div>
                         </div>
@@ -247,7 +247,6 @@
                         
                         <ul class="list-inline lgx-social-footer">
                             <li><a href="https://www.facebook.com/davietjal.org/"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            <li><a href="https://www.instagram.com/accounts/login/?next=/explore/locations/296608667/india/ludhiana-punjab-india/daviet-college-jalandhar/"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                         </ul>
                     </div>
                     <!--<div class="lgx-footer-single">

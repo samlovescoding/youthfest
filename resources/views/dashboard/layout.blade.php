@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link href="{{asset('/css/app.css')}}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+        {{-- <link rel="stylesheet" href="https://bootswatch.com/3/lumen/bootstrap.min.css"> --}}
         <style>
           body{
             font-family:"Lato" !important;

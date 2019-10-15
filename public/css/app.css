@@ -8241,7 +8241,7 @@ button.close {
   }
 }
 
-body {
-  font-family: "Avenir LT Std";
+.text-white {
+  color: white;
 }
 
