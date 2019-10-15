@@ -13,12 +13,12 @@
 
 //Default Route
 Route::get('/', function () {
-    return view('auth.login');
+    return view('landing.index');
 });
 
 //Default Route
 Route::get('/landing', function () {
-    return view('landing');
+    return view('landing.index');
 });
 
 //Authentication Routes
