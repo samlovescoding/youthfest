@@ -146,6 +146,7 @@
                             <div class="lgx-about-content">
                                 <p class="text">
                                     The details of the Zonal and Inter-Zonal Youth Festivals dedicated to <b>550th Birth Anniversary year of Sri Guru Nanak Dev Ji</b> in the affliated college of I.K. Gujral Punjab Technical University.
+                                    
                                 </p>
                                 <div class="about-date-area">
                                     <h4 class="date"><span>23</span></h4>

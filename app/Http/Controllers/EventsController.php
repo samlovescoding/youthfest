@@ -87,8 +87,7 @@ class EventsController extends Controller
         $event = Event::find($id);
         $user_id = Auth::id();
         $students = Student::orderBy('roll_number', 'asc')->where('accomp_id', $user_id)->get();
-        $can_assign_participant = true;
-        $can_assign_accomp = true;
+
         $total_participant_assigned = 0;
         $total_accomp_assigned = 0;
         $student_list = [];
@@ -100,12 +99,6 @@ class EventsController extends Controller
                 else
                     $total_accomp_assigned ++;
             }
-        }
-        if($total_participant_assigned >= $event->max_participants){
-            $can_assign_participant = false;
-        }
-        if($total_accomp_assigned >= $event->max_accomp){
-            $can_assign_accomp = false;
         }
 
         

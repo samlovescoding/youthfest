@@ -14,7 +14,13 @@
           <div class="panel-heading">Participants</div>
           <div class="panel-body">
             @if($event->max_participants != 0)
-              <div class="progress"><div class="progress-bar progress-bar-success" style="width: {{($total_participants_assigned/$event->max_participants)*100}}%"></div></div>
+              <?php 
+                $color = "success"; 
+                if($total_participants_assigned/$event->max_participants > 1){
+                  $color = "danger";
+                }
+              ?>
+              <div class="progress"><div class="progress-bar progress-bar-{{$color}}" style="width: {{($total_participants_assigned/$event->max_participants)*100}}%"></div></div>
             @else
               <div class="progress"><div class="progress-bar progress-bar-success" style="width: 100%"></div></div>
             @endif
@@ -27,7 +33,7 @@
           <div class="panel-heading">Accompanists</div>
           <div class="panel-body">
             @if($event->max_accomp != 0)
-              <div class="progress"><div class="progress-bar progress-bar-success" style="width: {{$total_accomp_assigned/$event->max_accomp}}%"></div></div>
+              <div class="progress"><div class="progress-bar progress-bar-success" style="width: {{($total_accomp_assigned/$event->max_accomp)*100}}%"></div></div>
             @else
               <div class="progress"><div class="progress-bar progress-bar-success" style="width: 100%"></div></div>
             @endif
@@ -54,11 +60,11 @@
       $accomplice = "";
       if($student->participating_as === "student_accomp"){
         $display_color = "warning";
-        $accomplice = " <b>(Accomplice)</b>";
+        $accomplice = " <b>(Accompanist)</b>";
       }
       if($student->participating_as === "accomp"){
         $display_color = "danger";
-        $accomplice = " <b>(Non Student Accomplice)</b>";
+        $accomplice = " <b>(Non Student Accompanist)</b>";
       }
     ?>
         <tr class="{{$display_color}}">
@@ -72,8 +78,8 @@
     </table>
     <div class="legend">
       <h4>Color Definition used in Table</h4>
-      <span class="bg-success">Student is Participant</span>
-      <span class="bg-warning">Student is Accompanist</span>
+      <span class="bg-success">Student Participant</span>
+      <span class="bg-warning">Student Accompanist</span>
       <span class="bg-danger">Non-Student Accompanist</span>
     </div>
   @else

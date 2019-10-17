@@ -71,6 +71,10 @@
       </tr>
     </tbody>
   </table>
+  @if($user_id == 1)
+    <a href="/students/{{$student->id}}/id-card" class="btn btn-primary">Generate ID Card</a>
+  @endif
   <a href="/students/{{$student->id}}/edit" class="btn btn-info">Edit</a>
+  <a href="/students/{{$student->id}}/print" class="btn btn-success">Print</a>
   <a href="/students/{{$student->id}}/delete" class="btn btn-danger">Delete</a>
 @endsection

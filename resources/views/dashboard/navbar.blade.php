@@ -26,16 +26,21 @@
           <ul class="dropdown-menu">
             <li><a href="{{route('students.create')}}">Registration</a></li>
             <li><a href="{{route('students.index')}}">Enrolled Students</a></li>
-          </ul>
+            @if($user->is_admin == 2)
+              
+            @endif
+      </ul>
         </li>
         
         @if($user->is_admin == 2)
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="{{action('HomeController@approve_list')}}">Students Enrolled</a></li>
+              <li><a href="{{action('StudentsController@all')}}">All Students</a></li>
               <li><a href="{{route('events.index')}}">Events</a></li>
               <li><a href="{{route('colleges.index')}}">Colleges</a></li>
+              <li><a href="{{action('StudentsController@idcards')}}">All ID Cards</a></li>
+              <li><a href="{{action('StudentsController@lock_idcards')}}">Lock All ID Cards</a></li>
             </ul>
           </li>
           @endif

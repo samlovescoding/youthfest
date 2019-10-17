@@ -16,7 +16,7 @@ Route::get('/', function () {
     return view('landing.index');
 });
 
-//Default Route
+//Default Landing Route
 Route::get('/landing', function () {
     return view('landing.index');
 });
@@ -40,8 +40,17 @@ Route::get('home/generate', 'HomeController@generate');
 Route::get('home/change_password', 'HomeController@change_password')->name("change_password");
 Route::post('home/change_password_update', 'HomeController@change_password_update')->name("change_password_update");
 
+//Student College Relation Routes
+Route::get('students/college/{college_name}', 'StudentsController@college');
+Route::get('students/college_id_cards/{college_name}', 'StudentsController@college_id_cards');
+Route::get('students/lock_college_id_cards/{college_name}', 'StudentsController@lock_college_id_cards');
+
 //Student Print Routes
+Route::get('students/{id}/id-card', 'StudentsController@print_idcard');
 Route::get('students/{id}/print', 'StudentsController@print');
+Route::get('students/id-cards', 'StudentsController@idcards');
+Route::get('students/all', 'StudentsController@all');
+Route::get('students/lock', 'StudentsController@lock_idcards');
 
 //Resource Routes
 Route::resource('students', 'StudentsController')->middleware("verified");

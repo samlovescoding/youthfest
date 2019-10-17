@@ -51,7 +51,14 @@
                 <div class="panel panel-default panel-event">
                     <div class="panel-heading">{{$event->name}}</div>
                     <div class="panel-body">
-                        <div class="progress"><div class="progress-bar progress-bar-success" style="width: {{($assigned_to_event/($event->max_participants + $event->max_accomp))*100}}%"></div></div>
+                        <?php
+                            $color = "success";
+                            if(($assigned_to_event/($event->max_participants + $event->max_accomp)) > 1){
+                                $color = "danger";
+                                
+                            }    
+                        ?>
+                        <div class="progress"><div class="progress-bar progress-bar-{{$color}}" style="width: {{($assigned_to_event/($event->max_participants + $event->max_accomp))*100}}%"></div></div>
                         <p>{{$assigned_to_event}}/{{($event->max_participants + $event->max_accomp)}} <small>Students Assigned</small></p>
                         <hr>
                         <ol>
@@ -86,7 +93,12 @@
         </div>
         <div class="modal-body">
             <ol>
+                <li>
+                    <h3 class="text-danger">Last date for registering students online is <br> 19<sup>th</sup> October 2019 5:00pm.</h3>
+                    No registration will be done after the date.
+                </li>
                 <li>If this is your first time, please <b>CHANGE your PASSWORD</b> immediately.</li>
+                <li>No offline registration will be performed. All participants must be registered online before the deadline.</li>
                 <li>The IKGPTU youth festival 2019 registration portal works in <b>Google Chrome Only</b>.</li>
                 <li>Single registration is required for registering a participant in which he/she is participating.</li>
                 <li>Select the events (whichever applicable) from Choose Event section while registering a Participant/ Student Accompanists/Accompanists</li>

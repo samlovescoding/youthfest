@@ -58,7 +58,7 @@
 <body>
     <h5 style="float:right; font-family:'Times New Roman';">Performa-I</h5>
     <div class="attested" style="font-family:'Times New Roman'; border:1px solid black; display:inline-block;line-height:140px; padding:0px 10px;position: absolute;top:50px; right:0px; 
-    background:url('/storage/studentPhotos/<?=$student->student_photo?>'); background-repeat:no-repeat; background-size:contain; color:rgba(0,0,0,0);">
+    background:url('/storage/studentPhotos/<?=$student->student_photo?>'); background-repeat:no-repeat; background-size:cover; color:rgba(0,0,0,0);">
         Attested Photo
     </div>
     <center class="header">
@@ -115,8 +115,7 @@
                         <td><?php if($student->university_registration == "0") echo "_______"; else echo $student->university_registration;?></td>
                     </tr>
                 </table>
-                Class &emsp;&emsp;&emsp;Branch&emsp;&emsp;&emsp;Roll No.&emsp;&emsp;&emsp;University Regd. No.<br>
-                <u><?=$student->class?></u>&emsp;&emsp;&emsp;&nbsp;&nbsp;<u><?=$student->branch?></u>&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u><?=$student->roll_number?></u>&emsp;&emsp;&emsp;&emsp;&emsp;<u><?php if($student->university_registration == "0") echo "_______"; else echo $student->university_registration;?></u>
+
             </li>
             
             <li>

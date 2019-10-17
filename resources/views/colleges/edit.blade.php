@@ -10,8 +10,7 @@
 		</div>
 		<div class="form-group">
 			{{Form::label('uuid', 'College Username')}}
-			{{Form::text('uuid', $college->registration_number, ['class'=> 'form-control', 'placeholder'=>'Enter College UUID'])}}
-			<p><small>This will not change the college username!</small></p>
+			{{Form::text('uuid', $college->registration_number, ['class'=> 'form-control', 'placeholder'=>'Enter College UUID', 'disabled' => 'disabled'])}}
 		</div>
 		<div class="form-group">
 			{{Form::label('nickname', 'College Nick Name')}}

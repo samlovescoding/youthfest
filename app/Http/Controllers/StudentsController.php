@@ -38,6 +38,15 @@ class StudentsController extends Controller
         $students = Student::orderBy($sort_by, 'asc')->where('accomp_id', $user_id)->paginate();
         return view("students.index")->with("students", $students);
     }
+    public function all(Request $request)
+    {
+        $sort_by = "name";
+        if($request->has("sort_by")){
+            $sort_by = $request->input("sort_by");
+        }
+        $students = Student::orderBy($sort_by, 'asc')->paginate();
+        return view("students.index")->with("students", $students);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -139,17 +148,21 @@ class StudentsController extends Controller
     public function show($id)
     {
         $student = Student::find($id);
-        if(Auth::id() !== $student->accomp_id){
-            return redirect("/posts")->with("error", "Unauthorized Page");
+        $user_id = Auth::id();
+        if($user_id !== 1)
+        if($user_id !== $student->accomp_id){
+            return redirect("/home")->with("error", "Unauthorized Page");
         }
-        return view("students.show")->with("student", $student);
+        return view("students.show")->with("student", $student)->with("user_id", $user_id);
     }
 
     public function print($id)
     {
         $student = Student::find($id);
-        if(Auth::id() !== $student->accomp_id){
-            return redirect("/posts")->with("error", "Unauthorized Page");
+        $user_id = Auth::id();
+        if($user_id !== 1)
+        if($user_id !== $student->accomp_id){
+            return redirect("/home")->with("error", "Unauthorized Page");
         }
         return view("students.print")->with("student", $student);
     }
@@ -163,8 +176,10 @@ class StudentsController extends Controller
     public function edit($id)
     {
         $student = Student::find($id);
-        if(Auth::id() !== $student->accomp_id){
-            return redirect("/posts")->with("error", "Unauthorized Page");
+        $user_id = Auth::id();
+        if($user_id !== 1)
+        if($user_id !== $student->accomp_id){
+            return redirect("/home")->with("error", "Unauthorized Page");
         }
         $event_relations = EventRelations::where("student", $id)->get();
         $event_list = Event::all();
@@ -196,19 +211,21 @@ class StudentsController extends Controller
 
         $student = Student::find($id);
 
-        if(Auth::id() !== $student->accomp_id){
-            return redirect("/posts")->with("error", "Unauthorized Page");
+        $user_id = Auth::id();
+        if($user_id !== 1)
+        if($user_id !== $student->accomp_id){
+            return redirect("/home")->with("error", "Unauthorized Page");
         }
 
         $student->name                      = $request->input("name");
         $student->father_name               = $request->input("father_name");
         $student->date_birth                = $request->input("date_birth");
         $student->participating_as          = $request->input("participating_as");
-        $student->class                     = $request->input("class");
-        $student->branch                    = $request->input("branch");
-        $student->roll_number               = $request->input("roll_number");
-        $student->university_registration   = $request->input("university_registration");
-        $student->year_of_passing           = $request->input("year_of_passing");
+        $student->class                     = $request->input("class") ? $request->input("class") : "";
+        $student->branch                    = $request->input("branch") ? $request->input("branch") : "";
+        $student->roll_number               = $request->input("roll_number") ? $request->input("roll_number") : "" ;
+        $student->university_registration   = $request->input("university_registration") ? $request->input("university_registration") : "";
+        $student->year_of_passing           = $request->input("year_of_passing") ? $request->input("year_of_passing") : "";
         $student->address                   = $request->input("address");
         $student->accomp_id                 = Auth::id();
         $event_list                         = $request->input("event_list");
@@ -248,8 +265,10 @@ class StudentsController extends Controller
     {
         $student = Student::find($id);
         if($student !== null){
-            if(Auth::id() !== $student->accomp_id){
-                return redirect("/posts")->with("error", "Unauthorized Page");
+            $user_id = Auth::id();
+            if($user_id !== 1)
+            if($user_id !== $student->accomp_id){
+                return redirect("/home")->with("error", "Unauthorized Page");
             }
             unlink("storage/studentPhotos/" . $student->student_photo);
             $student->delete();
@@ -259,5 +278,61 @@ class StudentsController extends Controller
         foreach ($event_relations as $event_relation) {
             $event_relation->delete();
         }
+    }
+
+    public function idcards(){
+        $students = Student::all();
+        return view("students.idcard", array(
+            "students" => $students
+        ));
+    }
+    public function print_idcard($id){
+        $student = Student::find($id);
+        return view("students.mycard", array(
+            "student" => $student
+        ));
+    }
+    public function lock_idcards(){
+        $students = Student::all();
+        foreach ($students as $student) {
+            $student->printed = 1;
+            $student->save();
+        }
+        return redirect("/students/all");
+    }
+
+
+
+
+
+
+    public function college($college_name)
+    {
+        $user = User::where("username", $college_name)->first();
+        if($user == null) return redirect("/home")->with("error", "College not found.");
+        $user_id = $user->id;
+        $students = Student::orderBy("name", 'asc')->where('accomp_id', $user_id)->paginate();
+        return view("students.index")->with("students", $students);
+    }
+
+    public function college_id_cards($college_name){
+        $user = User::where("username", $college_name)->first();
+        if($user == null) return redirect("/home")->with("error", "College not found.");
+        $user_id = $user->id;
+        $students = Student::where("accomp_id", $user_id)->get();
+        return view("students.idcard", array(
+            "students" => $students
+        ));
+    }
+    public function lock_college_id_cards($college_name){
+        $user = User::where("username", $college_name)->first();
+        if($user == null) return redirect("/home")->with("error", "College not found.");
+        $user_id = $user->id;
+        $students = Student::where("accomp_id", $user_id)->get();
+        foreach ($students as $student) {
+            $student->printed = 1;
+            $student->save();
+        }
+        return redirect("/colleges");
     }
 }
