@@ -272,6 +272,7 @@
 
                 <div class="lgx-footer-bottom">
                     <div class="lgx-copyright">
+                            <span style="float:right;">Made by <a href="http://github.com/samlovescoding" style="color:white;" target="_blank">SamLovesCoding</a></span>
                         <p> <span>©</span> 2019 DAVIET, Jalandhar. </p>
                     </div>
                 </div>

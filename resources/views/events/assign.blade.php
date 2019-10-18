@@ -50,6 +50,7 @@
           <th width="30%">Name</th>
           <th width="15%">Class</th>
           <th width="20%">University Registration No.</th>
+          <th>Controls</th>
         </tr>
       </thead>
       <tbody>
@@ -72,6 +73,9 @@
           <td>{{$student->name}}{!!$accomplice!!}</td>
           <td>{{$student->class}} {{$student->branch}}</td>
           <td>{{$student->university_registration}}</td>
+          <td>
+            <a href="/students/{{$student->id}}/edit" class="btn btn-xs btn-warning">Edit</a>
+          </td>
         </tr>
     @endforeach
       </tbody>

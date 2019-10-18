@@ -66,8 +66,12 @@
 
 		<div class="form-group">
 			{{Form::label('event_list', 'Choose Events')}}<br>
-			@foreach($event_list as $event => $event_name)
-				{{Form::checkbox('event_list[' . $event . ']', "true", false)}} {{$event_name}} <br>
+			@foreach($event_list as $event)
+			<?php
+				if($event->assigned >= ($event->max_participants+$event->max_accomp))
+				continue;
+			?>
+			{{Form::checkbox('event_list[' . $event->id . ']', "true", false)}} {{$event->name}} ({{$event->assigned}}/{{$event->max_participants+$event->max_accomp}}) <br>
 			@endforeach
 		</div>
 		

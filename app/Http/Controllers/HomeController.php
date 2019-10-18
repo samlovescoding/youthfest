@@ -122,4 +122,7 @@ class HomeController extends Controller
             $user->save();
         }
     }
+    public function about(){
+        return view("dashboard.about");
+    }
 }

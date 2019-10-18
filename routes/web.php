@@ -26,6 +26,7 @@ Auth::routes(["verify"=>true]);
 
 //Home
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/about', 'HomeController@about');
 
 //Events
 Route::get('events/{id}/assign', 'EventsController@assign');
@@ -44,6 +45,9 @@ Route::post('home/change_password_update', 'HomeController@change_password_updat
 Route::get('students/college/{college_name}', 'StudentsController@college');
 Route::get('students/college_id_cards/{college_name}', 'StudentsController@college_id_cards');
 Route::get('students/lock_college_id_cards/{college_name}', 'StudentsController@lock_college_id_cards');
+
+Route::get('students/unassigned', 'StudentsController@index_unassigned');
+Route::get('colleges/login_as/{college}', 'CollegesController@login_as');
 
 //Student Print Routes
 Route::get('students/{id}/id-card', 'StudentsController@print_idcard');

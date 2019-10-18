@@ -38,6 +38,17 @@ class StudentsController extends Controller
         $students = Student::orderBy($sort_by, 'asc')->where('accomp_id', $user_id)->paginate();
         return view("students.index")->with("students", $students);
     }
+    public function index_unassigned(Request $request)
+    {
+        $user_id = Auth::id();
+        $user = User::find($user_id);
+        $sort_by = "name";
+        if($request->has("sort_by")){
+            $sort_by = $request->input("sort_by");
+        }
+        $students = Student::orderBy($sort_by, 'asc')->where('accomp_id', $user_id)->get();
+        return view("students.index")->with("students", $students)->with("unassigned", true);
+    }
     public function all(Request $request)
     {
         $sort_by = "name";
@@ -58,7 +69,13 @@ class StudentsController extends Controller
         $events = Event::all();
         $event_list = [];
         foreach ($events as $event) {
-            $event_list[$event->id] = $event->name ;
+            $n = 0;
+            $students = Student::where("accomp_id", Auth::id())->get();
+            foreach ($students as $student) {
+                $n += EventRelations::where("student", $student->id)->where("event", $event->id)->count();
+            }
+            $event->assigned = $n;
+            $event_list[] = $event;
         }
         return view("students.create", ["event_list"=>$event_list]);
     }
@@ -175,15 +192,28 @@ class StudentsController extends Controller
      */
     public function edit($id)
     {
-        $student = Student::find($id);
+        $student_in_context = Student::find($id);
         $user_id = Auth::id();
         if($user_id !== 1)
-        if($user_id !== $student->accomp_id){
+        if($user_id !== $student_in_context->accomp_id){
             return redirect("/home")->with("error", "Unauthorized Page");
         }
+
         $event_relations = EventRelations::where("student", $id)->get();
-        $event_list = Event::all();
-        return view("students.edit")->with("student", $student)->with("event_relations", $event_relations)->with("event_list", $event_list);
+        
+        $events = Event::all();
+        $event_list = [];
+        foreach ($events as $event) {
+            $n = 0;
+            $students = Student::where("accomp_id", Auth::id())->get();
+            foreach ($students as $student) {
+                $n += EventRelations::where("student", $student->id)->where("event", $event->id)->count();
+            }
+            $event->assigned = $n;
+            $event_list[] = $event;
+        }
+
+        return view("students.edit")->with("student", $student_in_context)->with("event_relations", $event_relations)->with("event_list", $event_list);
     }
 
     /**
@@ -243,7 +273,7 @@ class StudentsController extends Controller
             $eventRelation = EventRelations::find($event_relation->id);
             $eventRelation->delete();
         }
-
+        if($event_list == null) $event_list = [];
         foreach ($event_list as $event_id => $value) {
             $event_relation = new EventRelations;
             $event_relation->student = $id;
@@ -300,11 +330,6 @@ class StudentsController extends Controller
         }
         return redirect("/students/all");
     }
-
-
-
-
-
 
     public function college($college_name)
     {

@@ -22,7 +22,7 @@
           <th>Nickname</th>
           <th>Students Enrolled</th>
           <th>Username</th>
-          <th width="30%">Controls</th>
+          <th width="35%">Controls</th>
         </tr>
       </thead>
       <tbody>
@@ -41,6 +41,9 @@
           <td>{{$college->registration_number}}</td>
           <td>
             <a href="/colleges/{{$college->id}}/edit" class="btn btn-info btn-xs pull-left">Edit</a>
+            @if(Auth::id() == 1)
+            <a href="/colleges/login_as/{{$college->registration_number}}" class="btn btn-primary btn-xs pull-left" target="_blank">Login</a>
+            @endif
             @if($students_enrolled != 0)
             <a href="/students/college/{{$college->registration_number}}" class="btn btn-success btn-xs pull-left">Students</a>
             <a href="/students/college_id_cards/{{$college->registration_number}}" class="btn btn-warning btn-xs pull-left" target="_blank">ID Cards</a>

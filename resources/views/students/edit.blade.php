@@ -95,8 +95,11 @@
 							$is_part = true;
 						}
 					}
+
+				if($event->assigned >= ($event->max_participants+$event->max_accomp))
+				continue;
 				?>
-				{{Form::checkbox('event_list[' . $event->id . ']', "true", $is_part)}} {{$event->name}} <br>
+				{{Form::checkbox('event_list[' . $event->id . ']', "true", $is_part)}} {{$event->name}} ({{$event->assigned}}/{{$event->max_participants+$event->max_accomp}}) <br>
 			@endforeach
 		</div>
 		

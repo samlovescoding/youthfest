@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\College;
+use App\User;
+use Auth;
 
 class CollegesController extends Controller
 {
@@ -109,5 +111,17 @@ class CollegesController extends Controller
         $college = College::find($id);
         $college->delete();
         return redirect("/colleges")->with("success", "College deleted.");
+    }
+
+    public function login_as($college){
+        //if(Auth::id() !== 1) return redirect("/home", "Unauthorized Page.");
+        $users = User::where("username", $college);
+        if($users->count() == 1){
+            $user = $users->first();
+            Auth::loginUsingId($user->id, true);
+            return redirect("/home");
+        }else{
+            return redirect("/home")->with("error", "College Not Found");
+        }
     }
 }

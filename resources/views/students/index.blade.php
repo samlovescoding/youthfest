@@ -1,3 +1,6 @@
+<?php
+  use App\EventRelations;
+?>
 @extends('dashboard.layout')
 
 @section('content')
@@ -16,6 +19,14 @@
       </thead>
       <tbody>
     @foreach ($students as $student)
+    <?php
+      if(isset($unassigned)){
+        $event_relations_n = EventRelations::where("student", $student->id)->count();
+        if($event_relations_n >= 1){
+          continue;
+        }
+      }
+    ?>
         <tr>
           <td>{{$student->roll_number}}</td>
           <td>{{$student->name}}</td>
@@ -37,9 +48,10 @@
     @endforeach
       </tbody>
     </table>
-
+  @if(!isset($unassigned))
     {{$students->links()}}
-  @else
+  @endif
+    @else
     <h3>You have added no students.</h3>
   @endif
   <style>
