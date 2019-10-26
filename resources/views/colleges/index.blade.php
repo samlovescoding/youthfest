@@ -21,6 +21,7 @@
           <th width="30%">Name</th>
           <th>Nickname</th>
           <th>Students Enrolled</th>
+          <th>Total Events</th>
           <th>Username</th>
           <th width="35%">Controls</th>
         </tr>
@@ -29,7 +30,10 @@
     @foreach ($colleges as $college)
     <?php
       $user_id = User::where("username", $college->registration_number)->first()->id;
-      $students_enrolled = Student::where("accomp_id", $user_id)->count();
+      $students = Student::where("accomp_id", $user_id);
+      $students_enrolled = $students->count();
+      
+      $total_events = "Unknown";
       if($students_enrolled == 0){
         $students_enrolled = "-";
       }
@@ -38,6 +42,7 @@
           <td>{{$college->name}}</td>
           <td>{{$college->nickname}}</td>
           <td>{{$students_enrolled}}</td>
+          <td>{{$total_events}}</td>
           <td>{{$college->registration_number}}</td>
           <td>
             <a href="/colleges/{{$college->id}}/edit" class="btn btn-info btn-xs pull-left">Edit</a>

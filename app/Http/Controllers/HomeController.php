@@ -125,4 +125,10 @@ class HomeController extends Controller
     public function about(){
         return view("dashboard.about");
     }
+    public function report_event(){
+        return view("reports.event");
+    }
+    public function report_all(){
+        return view("reports.all");
+    }
 }

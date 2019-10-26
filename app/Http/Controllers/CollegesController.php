@@ -16,7 +16,7 @@ class CollegesController extends Controller
      */
     public function index()
     {
-        $colleges = College::all();
+        $colleges = College::orderBy("name", "asc")->get();
         return view("colleges.index", ["colleges" => $colleges]);
     }
 
@@ -87,17 +87,15 @@ class CollegesController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'uuid' => 'required',
             'nickname' => 'required',
         ]);
 
         $college = College::find($id);
         $college->name                              = $request->input("name");
-        $college->registration_number               = $request->input("uuid");
         $college->nickname                          = $request->input("nickname");
 
         $college->save();
-        return redirect("/colleges")->with("success", "College Created.");
+        return redirect("/colleges")->with("success", "College was Updated.");
     }
 
     /**

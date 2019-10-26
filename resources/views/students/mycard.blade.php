@@ -17,7 +17,7 @@
 		<meta charset="utf-8">
 		<title>Generate ID Cards</title>
 		<style>
-				*{
+		*{
 					margin:0;
 					top:0;
 					box-sizing: border-box;
@@ -36,9 +36,9 @@
 					position:relative;
 					display:block;
 					height:75px;
-					width:60px;
+					width:63px;
 					background:black;
-					margin-left: 10px;
+					margin-right: 5px;
 				}
 				.row .column-50{
 					width:48%;
@@ -56,23 +56,27 @@
 				}
 				.card{
 					border:1px solid black;
-					width:49%;
+					width:45%;
+					min-height:170px;
+					max-height:170px;
+					overflow: hidden;
 					display:inline-block;
 					font-size:9px;
 					font-family: 'Montserrat', sans-serif;
 					padding:2px 12px;
-					padding-bottom: 10px;
+					
 					text-align: center;
-					margin-bottom: 5px;
+					margin-bottom: 10px;
+					margin-right: 25px;
 				}
 				.card table{
 					text-align: left;
 				}
 				.ptu{
-					width:60px;
+					width:55px;
 				}
 				.dav{
-					width:75px;
+					width:70px;
 				}
 				.ptu-holder{
 					text-align:left;
@@ -97,7 +101,7 @@
 				.header .ptu{
 					margin-top:5px;
 				}
-		</style>
+				</style>
 	</head>
 	<body>
 		<?php

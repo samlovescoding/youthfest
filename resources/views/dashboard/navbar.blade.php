@@ -41,8 +41,11 @@
                 <li><a href="{{action('StudentsController@all')}}">All Students</a></li>
                 <li><a href="{{route('events.index')}}">Events</a></li>
                 <li><a href="{{route('colleges.index')}}">Colleges</a></li>
-                {{-- <li><a href="{{action('StudentsController@idcards')}}">All ID Cards</a></li>
-                <li><a href="{{action('StudentsController@lock_idcards')}}">Lock All ID Cards</a></li> --}}
+                <li role="separator" class="divider"></li>
+                <li><a href="{{action('HomeController@report_event')}}">Event-wise Report</a></li>
+                <li><a href="{{action('HomeController@report_all')}}">All Students Report</a></li>
+                <li><a href="{{action('StudentsController@idcards')}}">All ID Cards</a></li>
+                <li><a href="{{action('StudentsController@lock_idcards')}}">Lock All ID Cards</a></li>
               </ul>
             </li>
           @endif

@@ -34,15 +34,15 @@
           <td>{{$student->university_registration}}</td>
           <td>
             <a href="/students/{{$student->id}}" class="btn btn-primary btn-xs pull-left">View</a>
+            <a href="/students/{{$student->id}}/edit" class="btn btn-warning btn-xs pull-left">Edit</a>
             <a href="http://117.254.49.252/students/{{$student->id}}/print" class="btn btn-info btn-xs pull-left" target="_blank">Print</a>
             @if(Auth::id() == 1)
             <a href="http://117.254.49.252/students/{{$student->id}}/id-card" class="btn btn-info btn-xs pull-left" target="_blank">ID Card</a>
-            @endif
-            <a href="/students/{{$student->id}}/edit" class="btn btn-warning btn-xs pull-left">Edit</a>
             {!!Form::open(["action"=>["StudentsController@destroy", $student->id], "method"=>"POST"])!!}
               {!!Form::hidden("_method", "DELETE")!!}
               {!!Form::submit("Delete", ["class"=>"btn btn-danger btn-xs"])!!}
             {!!Form::close()!!}
+            @endif
           </td>
         </tr>
     @endforeach

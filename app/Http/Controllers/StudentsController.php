@@ -317,6 +317,11 @@ class StudentsController extends Controller
         ));
     }
     public function print_idcard($id){
+        $user_id = Auth::id();
+        if($user_id !== 1)
+        if($user_id !== $student->accomp_id){
+            return redirect("/home")->with("error", "Unauthorized Page");
+        }
         $student = Student::find($id);
         return view("students.mycard", array(
             "student" => $student

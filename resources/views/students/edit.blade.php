@@ -95,7 +95,7 @@
 							$is_part = true;
 						}
 					}
-
+				if(!$is_part)
 				if($event->assigned >= ($event->max_participants+$event->max_accomp))
 				continue;
 				?>

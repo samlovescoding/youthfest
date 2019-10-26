@@ -1,5 +1,20 @@
 <?php
     use App\EventRelations;
+    use App\College;
+    use App\Student;
+    use  App\User;
+    if(Auth::id() == 1){
+        $all_students = Student::all();
+        $n_of_students = $all_students->count();
+        $n_of_colleges = 0;
+        $users = User::all();
+        foreach ($users as $user) {
+            $n_of_college_students = Student::where("accomp_id", $user->id)->count();
+            if($n_of_college_students > 0){
+                $n_of_colleges++;
+            }
+        }
+    }
 ?>
 @extends('dashboard.layout')
 
@@ -22,6 +37,26 @@
                 </div>
             </div>
         </div>
+        @if(Auth::id() == 1)
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Total Students</div>
+                <div class="panel-body">
+                    <h2>{{$n_of_students}}</h2>
+                </div>
+            </div>
+        </div>
+        @endif
+        @if(Auth::id() == 1)
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Total Colleges</div>
+                <div class="panel-body">
+                    <h2>{{$n_of_colleges}}</h2>
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
     <hr>
     <h3>Events</h3>
@@ -85,7 +120,7 @@
         }
     </style>
 
-<div class="modal fade" id="instructionModel" tabindex="-1" role="dialog">
+<div class="modal fade" id="instructionModel2" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
@@ -94,10 +129,11 @@
         <div class="modal-body">
             <ol>
                 <li>
-                    <h3 class="text-danger">Last date for registering students online is <br> 19<sup>th</sup> October 2019 5:00pm.</h3>
-                    No registration will be done after the date.
+                    <h3 class="text-danger">Last date for registering students online was <br> 22<sup>nd</sup> October 2019 12:00pm.</h3>
+                    Registration is closed now.
                 </li>
                 <li>If this is your first time, please <b>CHANGE your PASSWORD</b> immediately.</li>
+                <li>If a student is performing in multiple events, he must register for all the events individually and generate the Performa-I. Do not generate Performa-I by editing the details of an enrolled student.</li>
                 <li>No offline registration will be performed. All participants must be registered online before the deadline.</li>
                 <li>The IKGPTU youth festival 2019 registration portal works in <b>Google Chrome Only</b>.</li>
                 <li>Single registration is required for registering a participant in which he/she is participating.</li>

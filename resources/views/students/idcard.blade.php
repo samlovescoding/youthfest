@@ -15,7 +15,6 @@
 <html lang="en" dir="ltr">
 	<head>
 		<meta charset="utf-8">
-		<title>Generate ID Cards</title>
 		<style>
 				*{
 					margin:0;
@@ -36,9 +35,9 @@
 					position:relative;
 					display:block;
 					height:75px;
-					width:60px;
+					width:63px;
 					background:black;
-					margin-left: 10px;
+					margin-right: 5px;
 				}
 				.row .column-50{
 					width:48%;
@@ -56,9 +55,9 @@
 				}
 				.card{
 					border:1px solid black;
-					width:49%;
-					min-height:160px;
-					max-height:160px;
+					width:45%;
+					min-height:170px;
+					max-height:170px;
 					overflow: hidden;
 					display:inline-block;
 					font-size:9px;
@@ -67,6 +66,7 @@
 					
 					text-align: center;
 					margin-bottom: 10px;
+					margin-right: 25px;
 				}
 				.card table{
 					text-align: left;
@@ -115,7 +115,8 @@
 			}
 			$event_string = rtrim($event_string, ", ");
 		?>
-		<div class="card">
+		<title>{{$college->name}}</title>
+		<div class="card" style="margin-bottom:30px; ">
 				<div class="header">
 					<div class="ptu-holder">
 						<img src="{{asset('idcard/ptu.png')}}" class="ptu">
